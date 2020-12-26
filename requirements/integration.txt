@@ -66,6 +66,7 @@ wheel==0.37.0
 
 # blotout
 sqlalchemy-redshift
+apache-superset[cors]
 
 # The following packages are considered to be unsafe in a requirements file:
 # pip

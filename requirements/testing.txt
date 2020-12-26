@@ -137,6 +137,9 @@ websocket-client==1.2.0
 wrapt==1.12.1
     # via astroid
 
+# blotout
+apache-superset[cors]
+
 # The following packages are considered to be unsafe in a requirements file:
 # pip
 # setuptools
