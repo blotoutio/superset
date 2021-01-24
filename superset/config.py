@@ -307,7 +307,7 @@ AUTH_TYPE = AUTH_DB
 # Grant public role the same set of permissions as for a selected builtin role.
 # This is useful if one wants to enable anonymous users to view
 # dashboards. Explicit grant on specific datasets is still required.
-PUBLIC_ROLE_LIKE: Optional[str] = None
+PUBLIC_ROLE_LIKE_GAMMA = True
 
 # ---------------------------------------------------
 # Babel config for translations
@@ -381,8 +381,8 @@ DEFAULT_FEATURE_FLAGS: Dict[str, bool] = {
     # and doesn't work with all nested types.
     "PRESTO_EXPAND_DATA": False,
     # Exposes API endpoint to compute thumbnails
-    "THUMBNAILS": False,
-    "DASHBOARD_CACHE": False,
+    "THUMBNAILS": True,
+    "DASHBOARD_CACHE": True,
     "REMOVE_SLICE_LEVEL_LABEL_COLORS": False,
     "SHARE_QUERIES_VIA_KV_STORE": False,
     "TAGGING_SYSTEM": False,
@@ -401,7 +401,7 @@ DEFAULT_FEATURE_FLAGS: Dict[str, bool] = {
     "VERSIONED_EXPORT": True,
     "EMBEDDED_SUPERSET": False,
     # Enables Alerts and reports new implementation
-    "ALERT_REPORTS": False,
+    "ALERT_REPORTS": True,
     "DASHBOARD_RBAC": False,
     "ENABLE_EXPLORE_DRAG_AND_DROP": True,
     "ENABLE_FILTER_BOX_MIGRATION": False,
@@ -738,10 +738,10 @@ DASHBOARD_AUTO_REFRESH_MODE: Literal["fetch", "force"] = "force"
 # http://docs.celeryproject.org/en/latest/getting-started/brokers/index.html
 
 
-class CeleryConfig:  # pylint: disable=too-few-public-methods
-    broker_url = "sqla+sqlite:///celerydb.sqlite"
-    imports = ("superset.sql_lab",)
-    result_backend = "db+sqlite:///celery_results.sqlite"
+class CeleryConfig(object):  # pylint: disable=too-few-public-methods
+    broker_url = os.environ.get("REDIS_HOST")
+    imports = ("superset.sql_lab", 'superset.tasks',)
+    result_backend = os.environ.get("REDIS_HOST")
     worker_log_level = "DEBUG"
     worker_prefetch_multiplier = 1
     task_acks_late = False
@@ -749,15 +749,15 @@ class CeleryConfig:  # pylint: disable=too-few-public-methods
         "sql_lab.get_sql_results": {"rate_limit": "100/s"},
         "email_reports.send": {
             "rate_limit": "1/s",
-            "time_limit": int(timedelta(seconds=120).total_seconds()),
-            "soft_time_limit": int(timedelta(seconds=150).total_seconds()),
+            "time_limit": int(timedelta(seconds=300).total_seconds()),
+            "soft_time_limit": int(timedelta(seconds=300).total_seconds()),
             "ignore_result": True,
         },
     }
     beat_schedule = {
         "email_reports.schedule_hourly": {
             "task": "email_reports.schedule_hourly",
-            "schedule": crontab(minute=1, hour="*"),
+            "schedule": crontab(minute="1", hour="*"),
         },
         "reports.scheduler": {
             "task": "reports.scheduler",
@@ -950,14 +950,14 @@ FLASK_APP_MUTATOR = None
 ENABLE_ACCESS_REQUEST = False
 
 # smtp server configuration
-EMAIL_NOTIFICATIONS = False  # all the emails are sent using dryrun
-SMTP_HOST = "localhost"
+EMAIL_NOTIFICATIONS = True  # all the emails are sent using dryrun
+SMTP_HOST = "smtp.gmail.com"
 SMTP_STARTTLS = True
 SMTP_SSL = False
-SMTP_USER = "superset"
-SMTP_PORT = 25
-SMTP_PASSWORD = "superset"
-SMTP_MAIL_FROM = "superset@superset.com"
+SMTP_USER = os.environ.get("SMTP_USER")
+SMTP_PORT = 587
+SMTP_PASSWORD = os.environ.get("SMTP_PASSWORD")
+SMTP_MAIL_FROM = os.environ.get("SMTP_MAIL_FROM")
 
 ENABLE_CHUNK_ENCODING = False
 
@@ -1085,7 +1085,7 @@ ALERT_REPORTS_QUERY_EXECUTION_MAX_TRIES = 1
 EMAIL_REPORTS_SUBJECT_PREFIX = "[Report] "
 
 # Slack API token for the superset reports, either string or callable
-SLACK_API_TOKEN: Optional[Union[Callable[[], str], str]] = None
+SLACK_API_TOKEN = os.environ.get("SLACK_API_TOKEN")
 SLACK_PROXY = None
 
 # The webdriver to use for generating reports. Use one of the following
@@ -1117,7 +1117,7 @@ WEBDRIVER_CONFIGURATION: Dict[Any, Any] = {"service_log_path": "/dev/null"}
 WEBDRIVER_OPTION_ARGS = ["--headless", "--marionette"]
 
 # The base URL to query for accessing the user interface
-WEBDRIVER_BASEURL = "http://0.0.0.0:8080/"
+WEBDRIVER_BASEURL = os.environ.get("WEBDRIVER_BASEURL")
 # The base URL for the email report hyperlinks.
 WEBDRIVER_BASEURL_USER_FRIENDLY = WEBDRIVER_BASEURL
 # Time selenium will wait for the page to load and render for the email report.
