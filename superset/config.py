@@ -738,40 +738,6 @@ DASHBOARD_AUTO_REFRESH_MODE: Literal["fetch", "force"] = "force"
 # http://docs.celeryproject.org/en/latest/getting-started/brokers/index.html
 
 
-class CeleryConfig(object):  # pylint: disable=too-few-public-methods
-    broker_url = os.environ.get("REDIS_HOST")
-    imports = ("superset.sql_lab", 'superset.tasks',)
-    result_backend = os.environ.get("REDIS_HOST")
-    worker_log_level = "DEBUG"
-    worker_prefetch_multiplier = 1
-    task_acks_late = False
-    task_annotations = {
-        "sql_lab.get_sql_results": {"rate_limit": "100/s"},
-        "email_reports.send": {
-            "rate_limit": "1/s",
-            "time_limit": int(timedelta(seconds=300).total_seconds()),
-            "soft_time_limit": int(timedelta(seconds=300).total_seconds()),
-            "ignore_result": True,
-        },
-    }
-    beat_schedule = {
-        "email_reports.schedule_hourly": {
-            "task": "email_reports.schedule_hourly",
-            "schedule": crontab(minute="1", hour="*"),
-        },
-        "reports.scheduler": {
-            "task": "reports.scheduler",
-            "schedule": crontab(minute="*", hour="*"),
-        },
-        "reports.prune_log": {
-            "task": "reports.prune_log",
-            "schedule": crontab(minute=0, hour=0),
-        },
-    }
-
-
-CELERY_CONFIG = CeleryConfig  # pylint: disable=invalid-name
-
 # Set celery config to None to disable all the above configuration
 # CELERY_CONFIG = None
 
