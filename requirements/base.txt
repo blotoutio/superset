@@ -304,6 +304,7 @@ yarl==1.6.3
 
 # blotout
 sqlalchemy-redshift
+gevent==20.9.0
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools
