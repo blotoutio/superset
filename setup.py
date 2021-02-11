@@ -78,6 +78,7 @@ setup(
         "deprecation>=2.1.0, <2.2.0",
         "flask>=2.0.0, <3.0.0",
         "flask-appbuilder>=4.1.3, <5.0.0",
+        "python-crontab",
         "flask-caching>=1.10.0",
         "flask-compress",
         "flask-talisman",
@@ -105,7 +106,7 @@ setup(
         "pyarrow>=5.0.0, <6.0",
         "pyyaml>=5.4",
         "PyJWT>=2.4.0, <3.0",
-        "redis",
+        "redis==3.5.3",
         "selenium>=3.141.0",
         "simplejson>=3.15.0",
         "slackclient==2.5.0",  # PINNED! slack changes file upload api in the future versions
