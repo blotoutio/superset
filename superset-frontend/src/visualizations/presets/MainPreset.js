@@ -82,6 +82,18 @@ import { PivotTableChartPlugin as PivotTableChartPluginV2 } from '@superset-ui/p
 import { HandlebarsChartPlugin } from '@superset-ui/plugin-chart-handlebars';
 import FilterBoxChartPlugin from '../FilterBox/FilterBoxChartPlugin';
 import TimeTableChartPlugin from '../TimeTable';
+import { FunnelChartPlugin } from '@blotoutio/plugin-chart-funnel';
+import { PieDoughnutChartPlugin } from '@blotoutio/plugin-chart-pie-doughnut';
+import { LineStackChartPlugin } from '@blotoutio/plugin-chart-line-stack';
+import { LineMarkerChartPlugin } from '@blotoutio/plugin-chart-line-marker';
+import { BarBackgroundChartPlugin } from '@blotoutio/plugin-chart-bar-background';
+import { LineSimpleChartPlugin } from '@blotoutio/plugin-chart-line-simple';
+import { AreaBasicChartPlugin } from '@blotoutio/plugin-chart-area-basic';
+import { SankeyLevelsChartPlugin } from '@blotoutio/plugin-chart-sankey-levels';
+import { SankeyNodeAlignRightChartPlugin } from '@blotoutio/plugin-chart-sankey-node-align-right';
+import { SankeyItemstyleChartPlugin } from '@blotoutio/plugin-chart-sankey-itemstyle';
+import { BarLabelRotationChartPlugin } from '@blotoutio/plugin-chart-bar-label-rotation';
+import { BarYCategoryStackChartPlugin } from '@blotoutio/plugin-chart-bar-y-category-stack';
 
 export default class MainPreset extends Preset {
   constructor() {
@@ -169,6 +181,26 @@ export default class MainPreset extends Preset {
         new EchartsTreeChartPlugin().configure({ key: 'tree_chart' }),
         new HandlebarsChartPlugin().configure({ key: 'handlebars' }),
         ...experimentalplugins,
+        new FunnelChartPlugin().configure({ key: 'funnel' }),
+        new PieDoughnutChartPlugin().configure({ key: 'pie_doughnut' }),
+        new LineStackChartPlugin().configure({ key: 'line_stack' }),
+        new LineMarkerChartPlugin().configure({ key: 'line_marker' }),
+        new BarBackgroundChartPlugin().configure({ key: 'bar_background' }),
+        new LineSimpleChartPlugin().configure({ key: 'line_simple' }),
+        new BarLabelRotationChartPlugin().configure({ key: 'bar_rotation' }),
+        new BarYCategoryStackChartPlugin().configure({ key: 'bar_y_category' }),
+        new AreaBasicChartPlugin().configure({
+          key: 'area_basic',
+        }),
+        new SankeyLevelsChartPlugin().configure({
+          key: 'sankey_level',
+        }),
+        new SankeyNodeAlignRightChartPlugin().configure({
+          key: 'sankey_node_align',
+        }),
+        new SankeyItemstyleChartPlugin().configure({
+          key: 'sankey_itemstyle',
+        }),
       ],
     });
   }
