@@ -99,7 +99,7 @@ const BulkSelectWrapper = styled(Alert)`
     }
 
     .deselect-all {
-      color: ${theme.colors.primary.base};
+      color: color: rgb(255, 82, 25);
       margin-left: ${theme.gridUnit * 4}px;
     }
 

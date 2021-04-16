@@ -51,16 +51,19 @@ ARG NPM_VER=7
 RUN npm install -g npm@${NPM_VER}
 
 ARG NPM_BUILD_CMD="build"
+ARG GIT_AUTH_TOKEN
 ENV BUILD_CMD=${NPM_BUILD_CMD}
+ENV NODE_AUTH_TOKEN=${GIT_AUTH_TOKEN}
 
 # NPM ci first, as to NOT invalidate previous steps except for when package.json changes
 RUN mkdir -p /app/superset-frontend
 RUN mkdir -p /app/superset/assets
 COPY ./docker/frontend-mem-nag.sh /
 COPY ./superset-frontend /app/superset-frontend
+COPY ./superset-frontend/.npmrc /app/superset-frontend/
 RUN /frontend-mem-nag.sh \
         && cd /app/superset-frontend \
-        && npm ci
+        && npm i
 
 # This seems to be the most expensive step
 RUN cd /app/superset-frontend \
