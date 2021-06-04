@@ -477,7 +477,20 @@ STORE_CACHE_KEYS_IN_METADATA_DB = False
 # CORS Options
 ENABLE_CORS = True
 CORS_OPTIONS = {
-    'supports_credentials': True
+    'supports_credentials': True,
+    'allow_headers': [
+        'X-CSRFToken', 'Content-Type', 'Origin', 'X-Requested-With', 'Accept',
+    ],
+    'resources': [
+         '/superset/csrf_token/' , # auth
+         '/api/v1/formData/',  # sliceId => formData
+         '/superset/explore_json/*',  # legacy query API, formData => queryData
+         '/api/v1/query/',  # new query API, queryContext => queryData
+         '/superset/fetch_datasource_metadata/',  # datasource metadata
+         '/session_expire'
+
+    ],
+    'origins': ['https://stage.blotout.io'],
 }
 
 # Chrome allows up to 6 open connections per domain at a time. When there are more
