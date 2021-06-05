@@ -237,7 +237,7 @@ DRUID_METADATA_LINKS_ENABLED = True
 AUTH_TYPE = AUTH_DB
 
 # Uncomment to setup Full admin role name
-# AUTH_ROLE_ADMIN = 'Admin'
+AUTH_ROLE_ADMIN = os.environ.get("USER_DEFAULT_ROLE","Admin")
 
 # Uncomment to setup Public role name, no authentication needed
 # AUTH_ROLE_PUBLIC = 'Public'
@@ -246,7 +246,7 @@ AUTH_TYPE = AUTH_DB
 # AUTH_USER_REGISTRATION = True
 
 # The default user self registration role
-# AUTH_USER_REGISTRATION_ROLE = "Public"
+AUTH_USER_REGISTRATION_ROLE = os.environ.get("USER_DEFAULT_ROLE","Admin")
 
 # When using LDAP Auth, setup the LDAP server
 # AUTH_LDAP_SERVER = "ldap://ldapserver.new"
