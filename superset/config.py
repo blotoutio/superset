@@ -327,7 +327,7 @@ DEFAULT_FEATURE_FLAGS: Dict[str, bool] = {
     "SHARE_QUERIES_VIA_KV_STORE": False,
     "TAGGING_SYSTEM": False,
     "SQLLAB_BACKEND_PERSISTENCE": False,
-    "LISTVIEWS_DEFAULT_CARD_VIEW": False,
+    "LISTVIEWS_DEFAULT_CARD_VIEW": True,
     # Enables the replacement React views for all the FAB views (list, edit, show) with
     # designs introduced in https://github.com/apache/superset/issues/8976
     # (SIP-34). This is a work in progress so not all features available in FAB have
@@ -336,9 +336,9 @@ DEFAULT_FEATURE_FLAGS: Dict[str, bool] = {
     # When True, this flag allows display of HTML tags in Markdown components
     "DISPLAY_MARKDOWN_HTML": True,
     # When True, this escapes HTML (rather than rendering it) in Markdown components
-    "ESCAPE_MARKDOWN_HTML": False,
+    "ESCAPE_MARKDOWN_HTML": True,
     "DASHBOARD_NATIVE_FILTERS": True,
-    "DASHBOARD_CROSS_FILTERS": False,
+    "DASHBOARD_CROSS_FILTERS": True,
     "DASHBOARD_NATIVE_FILTERS_SET": False,
     "GLOBAL_ASYNC_QUERIES": False,
     "VERSIONED_EXPORT": True,
@@ -354,7 +354,7 @@ DEFAULT_FEATURE_FLAGS: Dict[str, bool] = {
     "ALERT_REPORTS": True,
     # Enable experimental feature to search for other dashboards
     "OMNIBAR": False,
-    "DASHBOARD_RBAC": False,
+    "DASHBOARD_RBAC": True,
 }
 
 # Set the default view to card/grid view if thumbnail support is enabled.
