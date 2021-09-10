@@ -32,6 +32,10 @@ function getDefaultConfiguration(): ClientConfig {
       : undefined,
     host: (window.location && window.location.host) || '',
     csrfToken: csrfToken || cookieCSRFToken,
+    headers: {
+      BO_TOKEN: localStorage.getItem('bo_token') || '',
+      BO_EMAIL: localStorage.getItem('bo_email') || '',
+    },
   };
 }
 
