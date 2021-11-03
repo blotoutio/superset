@@ -508,7 +508,7 @@ class ChartRestApi(BaseSupersetModelRestApi):
         action=lambda self, *args, **kwargs: f"{self.__class__.__name__}.data",
         log_to_statsd=False,
     )
-    @authenticate_permissions_request(is_sql_query=False)
+    @authenticate_permissions_request(is_json_query=True)
     def data(self) -> Response:
         """
         Takes a query context constructed in the client and returns payload
