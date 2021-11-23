@@ -6,6 +6,7 @@ import requests
 
 
 class PermissionsManager:
+    ENABLE_COMPLII = "ENABLE_COMPLII"
     COMPLII_URL = "COMPLII_URL"
     SEPARATOR = "/"
     PERMISSIONS_API_URL_PATH = "complii/api/permissions"
@@ -15,6 +16,7 @@ class PermissionsManager:
     BLOTOUT_USER_TOKEN = "bo_token"
 
     def __init__(self) -> None:
+        self._complii_enabled = True if (environ.get(self.ENABLE_COMPLII)) else False
         self._client = requests
         self._url = "{0}{1}{2}".format(environ.get(self.COMPLII_URL), self.SEPARATOR,
                                        self.PERMISSIONS_API_URL_PATH)
@@ -24,6 +26,10 @@ class PermissionsManager:
 
     # TODO: Testing is pending for this function post header changes
     def check_for_sql(self, query) -> (bool, str):
+
+        if not self._complii_enabled:
+            return True, "Complii Disabled"
+
         query_type = "sql"
 
         headers = {
