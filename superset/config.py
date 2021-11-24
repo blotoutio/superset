@@ -36,8 +36,6 @@ from dateutil import tz
 from flask import Blueprint
 from flask_appbuilder.security.manager import AUTH_DB
 from pandas.io.parsers import STR_NA_VALUES
-from flask_login import current_user, logout_user
-from flask import g
 from superset.jinja_context import (  # pylint: disable=unused-import
     BaseTemplateProcessor,
 )
@@ -46,7 +44,6 @@ from superset.typing import CacheConfig
 from superset.utils.core import is_test
 from superset.utils.log import DBEventLogger
 from superset.utils.logging_configurator import DefaultLoggingConfigurator
-from flask import request
 logger = logging.getLogger(__name__)
 
 if TYPE_CHECKING:
