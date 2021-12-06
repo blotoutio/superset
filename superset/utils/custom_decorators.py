@@ -1,6 +1,6 @@
 import json
 from functools import wraps
-from flask import request, Response
+from flask import request
 from werkzeug.exceptions import abort
 
 from superset.utils.permissions_manager import PermissionsManager
@@ -21,17 +21,27 @@ def authenticate_permissions_request(is_sql_query=False, is_json_query=False):
                 if not res[0]:
                     return abort(401, res[1])
             
+            def check_json_query(result_obj):
+                sql = result_obj["query"]
+                return check_sql_permission(sql)
+
+
             if is_json_query:
-                json_resp = fn(*args, **kwargs)
-                if json_resp:
-                    # '\n' in response causes exception during parsing. So replacing new line escape sequence
-                    json_resp.replace("\n", " ")
-                    resp = json.loads(json_resp)
-                    for cacheObj in resp["result"]:
-                        sql = cacheObj["query"]
-                        res = check_sql_permission(sql)
+                resp = fn(*args, **kwargs)
+                if resp.status_code == 200:
+                    result_list = None
+                    resp_obj = json.loads(resp.response[0])
+                    try:
+                        result_list = resp_obj["result"]
+                    except KeyError:
+                        res = check_json_query(resp_obj)
                         if not res[0]:
                             return abort(401, res[1])
+                    if result_list is not None:
+                        for result in result_list:
+                            res = check_json_query(result)
+                            if not res[0]:
+                                return abort(401, res[1])
 
             return fn(*args, **kwargs)
 
