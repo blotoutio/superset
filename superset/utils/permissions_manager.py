@@ -30,6 +30,10 @@ class PermissionsManager:
         if not self._complii_enabled:
             return True, "Complii Disabled"
 
+        if not self._group or not self._token:
+            print("Headers Missing: " + self.BLOTOUT_USER_EMAIL + " and " + self.BLOTOUT_USER_TOKEN + " are missing, cannot proceed without it")
+            return True, "Headers Missing"
+
         query_type = "sql"
 
         headers = {
