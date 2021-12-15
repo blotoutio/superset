@@ -16,7 +16,7 @@ class PermissionsManager:
     BLOTOUT_USER_TOKEN = "bo_token"
 
     def __init__(self) -> None:
-        self._complii_enabled = True if (environ.get(self.ENABLE_COMPLII) == 1) || (environ.get(self.ENABLE_COMPLII) == '1') else False
+        self._complii_enabled = True if (environ.get(self.ENABLE_COMPLII) == '1' or environ.get(self.ENABLE_COMPLII) == 1) else False
         self._client = requests
         self._url = "{0}{1}{2}".format(environ.get(self.COMPLII_URL), self.SEPARATOR,
                                        self.PERMISSIONS_API_URL_PATH)
