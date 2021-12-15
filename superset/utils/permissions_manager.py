@@ -49,12 +49,13 @@ class PermissionsManager:
         response = requests.post(self._url, json=data, headers=headers)
         res = json.loads(response.text)
 
-        if response.status_code == 200:
-            message = None
-            if not res["allowQuery"]:
-                cols = [item["name"] for item in res["objects"] if
-                        item["state"] == "DENIED"]
-                message = "Permission Denied for " + ", ".join(cols)
-            return res["allowQuery"], message
-        else:
-            return False, res["message"]
+        return True, "NO_OPT on Complii"
+        # if response.status_code == 200:
+        #     message = None
+        #     if not res["allowQuery"]:
+        #         cols = [item["name"] for item in res["objects"] if
+        #                 item["state"] == "DENIED"]
+        #         message = "Permission Denied for " + ", ".join(cols)
+        #     return res["allowQuery"], message
+        # else:
+        #     return False, res["message"]
