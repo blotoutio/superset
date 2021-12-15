@@ -48,7 +48,7 @@ class PermissionsManager:
         }
         response = requests.post(self._url, json=data, headers=headers)
         res = json.loads(response.text)
-
+        print("NO_OPT on Complii, response will always be True")
         return True, "NO_OPT on Complii"
         # if response.status_code == 200:
         #     message = None
