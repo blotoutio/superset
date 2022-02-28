@@ -246,7 +246,7 @@
     "cross-env": "^5.2.0",
     "css-loader": "^1.0.0",
     "emotion-ts-plugin": "^0.5.3",
-    "enzyme": "^3.10.0",
+    "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "eslint": "^7.17.0",
     "eslint-config-airbnb": "^18.2.1",
