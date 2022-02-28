@@ -149,8 +149,8 @@ function DashboardTable({
   };
 
   useEffect(() => {
-    getData(defaultFilter)
-  }, [])
+    getData(defaultFilter);
+  }, []);
 
   const handleDashboardEdit = (edits: Dashboard) =>
     SupersetClient.get({

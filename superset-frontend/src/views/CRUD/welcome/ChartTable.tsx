@@ -145,8 +145,8 @@ function ChartTable({
     });
 
   useEffect(() => {
-    getData(chartFilter)
-  }, [])
+    getData(chartFilter);
+  }, []);
 
   useEffect(() => {
     if (loaded || chartFilter === 'Favorite') {
