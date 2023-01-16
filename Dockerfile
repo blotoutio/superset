@@ -126,7 +126,7 @@ RUN apt update \
 # ENV CHROME_VERSION 108.0.5359.124
 RUN wget --no-verbose -O /tmp/chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
     && apt install -y /tmp/chrome.deb
-RUN CHROME_DRIVER 101.0.4951.41
+ENV CHROME_DRIVER 101.0.4951.41
 RUN wget https://chromedriver.storage.googleapis.com/${CHROME_DRIVER}/chromedriver_linux64.zip && \
     unzip chromedriver_linux64.zip && \
     chmod +x chromedriver && \
