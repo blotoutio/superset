@@ -122,8 +122,8 @@ RUN apt update \
 #     libffi-dev python3-dev libsasl2-dev libldap2-dev libxi-dev \
 #     default-jre libgtk-3-0 xvfb firefox-esr
 
-# Install for google chrome
-ENV CHROME_VERSION current
+# Install for google chrome   google-chrome-stable_current_amd64.deb
+ENV CHROME_VERSION 108.0.5359.124
 RUN wget --no-verbose -O /tmp/chrome.deb https://dl.google.com/linux/deb/pool/main/g/google-chrome-stable/google-chrome-stable_${CHROME_VERSION}_amd64.deb \
     && apt install -y /tmp/chrome.deb
 RUN CHROME_DRIVER 99.0.4844.51
